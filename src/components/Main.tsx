@@ -4,10 +4,11 @@ import Image from "next/image";
 import { SendHorizontal, Book, Code, Utensils, NotebookText, User } from "lucide-react";
 import { useAppContext } from "../context/context";
 import GroundingChunksList from "./GroundingChunksList";
+import { useTheme } from "next-themes";
+import { useRef } from "react";
 
 export default function Main() {
   const {
-    onSent,
     chatWithVertex,
     groundingChunks,
     input,
@@ -17,12 +18,19 @@ export default function Main() {
     showResult,
     result
   } = useAppContext();
+  const { theme } = useTheme();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="flex-1 min-h-screen bg-white dark:bg-gray-900 pb-[15vh] relative border-blue-500 dark:border-gray-300">
       <div className="flex items-center justify-between text-2xl bg-white dark:bg-gray-800 border-b-2 border-gray-400 dark:border-gray-300">
-        <Image className="ml-[20%]" src="/aico.png" alt="Logo" width={90} height={90} />
-        <Image className="mr-[20%]" src="/logo-blue.png" alt="Logo" width={90} height={90} />
+        {
+          theme === "light" ? (
+            <><Image className="ml-[20%]" src="/aico-agent.png" alt="Logo" width={180} height={90} /><Image className="mr-[20%]" src="/logo-blue.png" alt="Logo" width={90} height={90} /></>
+          ) : (
+            <><Image className="ml-[20%]" src="/aico-agent-blk.png" alt="Logo" width={180} height={90} /><Image className="mr-[20%]" src="/logo-white.png" alt="Logo" width={90} height={90} /></>
+          )
+        }
       </div>
       <div className="max-w-[900px] mx-auto">
         {!showResult ? (
@@ -38,7 +46,7 @@ export default function Main() {
                 { text: "Document analysis", icon: Book },
                 { text: "Party suggestions", icon: Code },
               ].map((item, index) => (
-                <div key={index} className="h-[150px] p-4 bg-gray-200 dark:bg-gray-700 rounded-lg relative cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600">
+                <div key={index} onClick={() => {setInput(item.text +" "); inputRef.current?.focus()}} className="h-[150px] p-4 bg-gray-200 dark:bg-gray-700 rounded-lg relative cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600">
                   <p className="text-gray-800 dark:text-gray-200">{item.text}</p>
                   <item.icon className="absolute bottom-2 right-2 p-1 dark:bg-gray-300 rounded-full" />
                 </div>
@@ -72,6 +80,7 @@ export default function Main() {
         <div className="absolute bottom-0 w-full max-w-[900px] pt-10 mt-5">
           <div className="flex items-center justify-between gap-5 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 p-2 rounded-full">
             <input 
+              ref={inputRef}
               onChange={(e) => setInput(e.target.value)} 
               value={input} 
               onKeyDown={(e) => e.key === "Enter" && chatWithVertex()} 

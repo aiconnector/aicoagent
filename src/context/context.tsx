@@ -29,10 +29,10 @@ function formatText(text: string): string {
   const boldFormatted = text.replace(/\*\*(.*?)\*\*/g, "<br><b>$1</b>");
   
   // Handle source references as subscripts
-  const sourceFormatted = boldFormatted.replace(/\[(.*?)\]/g, "<sub>[$1]</sub>");
+//   const sourceFormatted = boldFormatted.replace(/\[(.*?)\]/g, "[$1]");
   
   // Handle newline characters, replace multipe <br> with <br></br>into one
-  const newlineFormatted = sourceFormatted.replace(/\*/g, "<br>").replace(/(<br>\s*){2,}/g, '<br>');
+  const newlineFormatted = boldFormatted.replace(/\*/g, "<br>").replace(/(<br>\s*){2,}/g, '<br>');
   
   // Handle single asterisks for emphasis (e.g., italic)
   const finalFormatted = newlineFormatted.replace(/\*(.*?)\*/g, "<em>$1</em>");
