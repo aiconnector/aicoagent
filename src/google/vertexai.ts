@@ -69,19 +69,6 @@ async function searchContent() {
   }
 }
 
-interface VertexAIResponse {
-  text: string;
-  groundingChunks: VertexAIGroundingChunk[];
-}
-
-interface VertexAIGroundingChunk {
-  retrievedContext?: {
-    uri?: string;
-    title?: string;
-    text?: string;
-  };
-}
-
 export async function getChatResponse(prompt: string = 'tell me about racer 5'): Promise<GenerateContentResponse> {
   try {
     console.log("getResponse called with prompt:", prompt);
