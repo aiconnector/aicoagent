@@ -57,7 +57,7 @@ jobs:
   deploy:
     permissions:
       contents: none
-    runs-on: ubuntu-latest
+    runs-on: Windows
     needs: build
     environment:
       name: 'Development'
