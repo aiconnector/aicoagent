@@ -8,7 +8,16 @@ export default async function UserAvatar() {
  
   return (
     <div>
-      <Image src={session.user.image} alt="User Avatar" />
+      {session.user.image ? (
+        <Image 
+          src={session.user.image} 
+          alt="User Avatar" 
+          width={32} 
+          height={32}
+        />
+      ) : (
+        <div>No Avatar</div>
+      )}
     </div>
   )
 }
