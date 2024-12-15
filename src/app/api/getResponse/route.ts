@@ -70,7 +70,7 @@ async function searchContent() {
   }
 }
 
-async function getResponse(prompt: string = 'tell me about racer 5'): Promise<GenerateContentResponse> {
+async function getChatResponse(prompt: string = 'tell me about racer 5'): Promise<GenerateContentResponse> {
   try {
     console.log("getResponse called with prompt:", prompt);
     const chat = await searchContent();
